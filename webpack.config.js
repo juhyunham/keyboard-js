@@ -1,9 +1,8 @@
 const path = require("path");
-const TerserWebpackPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-
 module.exports = {
   entry: "./src/js/index.js",
   output: {
@@ -24,11 +23,9 @@ module.exports = {
       title: "keyboard",
       template: "./index.html",
       inject: "body",
-      // favicon: "./favicon.ico",
+      favicon: "./favicon.ico",
     }),
-    new MiniCssExtractPlugin({
-      filename: "style.css",
-    }),
+    new MiniCssExtractPlugin({ filename: "style.css" }),
   ],
   module: {
     rules: [
@@ -39,6 +36,6 @@ module.exports = {
     ],
   },
   optimization: {
-    minimizer: [new TerserWebpackPlugin(), new CssMinimizerPlugin()],
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
 };
